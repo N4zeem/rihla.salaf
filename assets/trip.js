@@ -1030,11 +1030,17 @@
       }).join('') + '</div>' : '';
       if (s.key === 'islands') extra = islandChips('schedule');
       if (s.key === 'to_eydh') extra = islandChips('to_eydhafushi');
+      // ceremony agenda: time · item · who runs it
+      var ag = (s.agenda || []).filter(function (a) { return a.item; });
+      if (ag.length) extra += '<ol class="pg-agenda">' + ag.map(function (a) {
+        return '<li>' + (a.time ? '<span class="sched-time" dir="ltr">' + esc(a.time) + '</span>' : '<span class="sched-time"></span>') +
+          '<span>' + esc(a.item) + (a.by ? '<small class="sched-by">' + esc(a.by) + '</small>' : '') + '</span></li>';
+      }).join('') + '</ol>';
       var has = s.date || s.time || s.details || extra;
       return '<li class="pg-step"><span class="pg-n">' + (i + 1) + '</span><div class="pg-card">' +
         '<div class="pg-title">' + esc(s.title || '') + '</div>' + when(s) +
         (s.details ? '<p class="task-details">' + esc(s.details).replace(/\n/g, '<br>') + '</p>' : '') +
-        extra + (!s.date && !s.details ? TBC : '') + '</div></li>';
+        extra + (!s.date && !s.details && !ag.length ? TBC : '') + '</div></li>';
     }).join('') + '</ol>' : '<p class="none">' + EMPTY + '</p>';
     el.addEventListener('click', function (e) {
       var c = e.target.closest('.pg-chip');

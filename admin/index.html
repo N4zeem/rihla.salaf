@@ -596,6 +596,8 @@ legend { padding: 0 .4rem; color: var(--warm); font-weight: 700; font-size: .95r
           b.appendChild(el('div', { class: 'grid2' }, [dateField(st, 'date', 'ތާރީޚު', r), textField(st, 'time', 'ގަޑި', { ltr: true, onchange: r })]));
           b.appendChild(textField(st, 'place', 'ތަން', { onchange: r }));
           b.appendChild(areaField(st, 'details', 'ތަފްޞީލު'));
+          b.appendChild(rowsField(st, 'agenda', 'އެޖެންޑާ', [
+            { key: 'time', ph: 'ގަޑި', narrow: true, ltr: true }, { key: 'item', ph: 'ބައި' }, { key: 'by', ph: 'ހިންގާނީ' }], 'ބައެއް'));
         } });
     } },
     report: { label: 'ރިޕޯޓު', render: function () {
